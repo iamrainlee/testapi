@@ -43,7 +43,9 @@ def tictactoe():
                         else:
                             logging.info("Possibly lost game !")
                         gameOn = False
-                    continue
+                    except:
+                        gameOn = False
+                        continue
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 
