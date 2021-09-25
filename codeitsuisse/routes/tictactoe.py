@@ -19,10 +19,13 @@ def tictactoe():
     youAre = ""
     gameOn = True
     while gameOn :
-        messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
-        for msg in messages:
-            logging.info("data sent from arena {}".format(msg.data))
-            data = json.loads(msg.data.replace("'",'"'))
+        # messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
+        # for msg in messages:
+        for i in range(1):
+            r = requests.get('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
+            logging.info("data sent from arena {}".format(r))
+            # data = json.loads(msg.data.replace("'",'"'))
+            data = r.json()
             try:
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
