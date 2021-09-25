@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 @app.route('/parasite', methods=['POST'])
 def parasite():
     data = request.get_json()
+    logging.info("Data: {}".format(data))
     result = []
     for i in data:
         result.append(calparasite(i))
