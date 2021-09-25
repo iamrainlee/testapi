@@ -51,7 +51,7 @@ def tictactoe():
                         makemove(board,played,youAre,battleId)
                 except:
                     try:
-                        if(data['winner'] == "draw" or data['winner'] == "O"):
+                        if(data['winner'] == "draw" or data['winner'] == youAre):
                             logging.info("Win game !")
                         else:
                             logging.info("Possibly lost game !")
