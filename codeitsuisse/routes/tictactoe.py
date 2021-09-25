@@ -1,8 +1,6 @@
 import logging
 import json
-import asyncio
-import aiohttp
-from aiosseclient import aiosseclient
+from sseclient import SSEClient
 import requests
 
 from flask import request, jsonify
@@ -21,9 +19,10 @@ def tictactoe():
     youAre = ""
     gameOn = True
     while gameOn :
-        for event in aiosseclient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId):
+        messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
+        for msg in messages:
             # r = requests.get('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
-            data = event
+            data = msg.data
             logging.info("data sent from arena {}".format(data))
             # data = json.loads(msg.data.replace("'",'"'))
             if type(data) is str:
