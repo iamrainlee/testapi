@@ -105,10 +105,10 @@ def calparasite(data):
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if(grid[i][j] == 1):
-                uninfected = True
+                uninfected1 = True
             if(grid2[i][j] == 1):
                 uninfected2 = True
-        if(uninfected and uninfected2):
+        if(uninfected1 and uninfected2):
             break
     for i in range(len(grid)):
         for j in range(len(grid[i])):
