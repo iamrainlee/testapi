@@ -29,9 +29,11 @@ def tictactoe():
                 data = json.loads(data)
                 logging.info(data)
             try:
+                logging.info(data['youAre'])
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
                     if(data['youAre'] == "O"):
+                        logging.info("Prepare to makemove")
                         makemove(board,played,youAre,battleId)
             except:
                 try:
@@ -40,6 +42,7 @@ def tictactoe():
                     else:
                         if(data["action"] == "putSymbol"):
                             played[board.index(data['position'])] = data['player']
+                            logging.info("Prepare to makemove")
                             makemove(board,played,youAre,battleId)
                 except:
                     try:
