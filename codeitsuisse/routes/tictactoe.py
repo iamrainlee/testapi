@@ -50,6 +50,7 @@ def tictactoe():
                             if(data['position'] not in board or played[board.index(data['position'])] != ''):
                                 logging.info("Flip table")
                                 gameOn = False
+                                rdata = {}
                                 rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                                 requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                                 break
@@ -59,6 +60,7 @@ def tictactoe():
                         except:
                             logging.info("Flip table")
                             gameOn = False
+                            rdata = {}
                             rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                             requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                             break
@@ -73,7 +75,7 @@ def tictactoe():
                     except:
                         gameOn = False
                         break
-    return
+    return json.dumps(data)
 
 def makemove(board,played,youAre,battleId):
     data = {}
@@ -127,3 +129,15 @@ def checkwin(played,youAre):
         return True
     else:
         return False
+
+def score(played,youAre):
+    if youAre == 'O':
+        opponent = 'X'
+    else:
+        opponent = 'O'
+    if checkwin(played,youAre):
+        return 10
+    elif checkwin(played,opponent):
+        return -10
+    else:
+        return 0
