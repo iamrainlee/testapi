@@ -39,21 +39,25 @@ def calasteroid(str):
     x = 0
     maxx = mid
     max = calscore(str,mid)
-    # while True:
-    #     x+=1
-    #     if(max == max_score):
-    #         break
-    #     if((mid-x)<0 and (mid+x)>= len(str)):
-    #         break
-    #     if((mid-x)>=0 and calscore(str,mid-x)>max):
-    #         max = calscore(str,mid-x)
-    #         maxx = mid-x
-    #     if((mid+x)<len(str) and calscore(str,mid+x)>max):
-    #         max = calscore(str,mid+x)
-    #         maxx = mid+x
+    while True:
+        x+=1
+        if(max == max_score):
+            break
+        if((mid-x)<0 and (mid+x)>= len(str)):
+            break
+        y1,y2 = searchstr(str,str[mid-x],mid-x)
+        if(mid-x != (y1+y2)//2):
+            if((mid-x)>=0 and calscore(str,mid-x)>max):
+                max = calscore(str,mid-x)
+                maxx = mid-x
+        y1,y2 = searchstr(str,str[mid+x],mid+x)
+        if(mid+x == (y1+y2)//2):
+            if((mid+x)<len(str) and calscore(str,mid+x)>max):
+                max = calscore(str,mid+x)
+                maxx = mid+x
     r = {}
     r['input'] = str
-    r['score'] = max
+    r['score'] = int(max)
     r['origin'] = maxx
     return r
 
@@ -61,33 +65,47 @@ def calscore(str,n):
     if(len(str) == 0):
         return 0
     char = str[n]
+    # left = True
+    # right = True
+    # score = 1
+    # x = 0
+    # count = 1
+    # while left and right:
+    #     x += 1
+    #     if (n+1) >= len(str) or str[n+1] != char:
+    #         if(count == 1):
+    #             right = False
+    #         else:
+    #
+    #     if (n-1) < 0 or str[n-1] != char:
+    #         if(count == 1):
+    #             left = False
+    #
+    # return score
     x,y = searchstr(str,char,n)
-    logging.info(str[x:y])
+    logging.info(str+" Partial: " + str[x:y])
     if(len(str[x:y]) >= 10):
         if(x!= 0 and y != len(str)):
-            return calscore(str[:x]+str[y+1:],x-1) + 2*len(str[x:y])
-        elif(x!= 0):
-            return calscore(str[:x]+str[y:],x-1) + 2*len(str[x:y])
-        elif(y != len(str)):
-            return calscore(str[y+1:],x) + 2*len(str[x:y])
+            if(str[x-1] == str[y]):
+                return calscore(str[:x]+str[y:],x-1) + 2*len(str[x:y])
+            else:
+                return 2*len(str[x:y])
         else:
             return 2*len(str[x:y])
     elif(len(str[x:y]) >= 7):
         if(x!= 0 and y != len(str)):
-            return calscore(str[:x]+str[y+1:],x-1) + 1.5*len(str[x:y])
-        elif(x!= 0):
-            return calscore(str[:x]+str[y:],x-1) + 1.5*len(str[x:y])
-        elif(y != len(str)):
-            return calscore(str[y+1:],x) + 1.5*len(str[x:y])
+            if(str[x-1] == str[y]):
+                return calscore(str[:x]+str[y:],x-1) + 1.5*len(str[x:y])
+            else:
+                return 1.5*len(str[x:y])
         else:
             return 1.5*len(str[x:y])
     else:
         if(x!= 0 and y != len(str)):
-            return calscore(str[:x]+str[y+1:],x-1) + len(str[x:y])
-        elif(x!= 0):
-            return calscore(str[:x]+str[y:],x-1) + len(str[x:y])
-        elif(y != len(str)):
-            return calscore(str[y+1:],x) + len(str[x:y])
+            if(str[x-1] == str[y]):
+                return calscore(str[:x]+str[y:],x-1) + len(str[x:y])
+            else:
+                return len(str[x:y])
         else:
             return len(str[x:y])
 def searchstr(str,char,n):
