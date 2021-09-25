@@ -131,14 +131,88 @@ def calparasite(data):
         changed = changed1 or changed2
     uninfected1 = False
     uninfected2 = False
+    energy = 0
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if(grid[i][j] == 1):
                 uninfected = True
             if(grid2[i][j] == 1):
                 uninfected2 = True
-        if(uninfected1 and uninfected2):
-            break
+            if(grid[i][j] == 1):
+                for k in range(1,len(grid)):
+                    success = False
+                    try:
+                        if(grid[i+k+1][j] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i-k+1][j] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i][j+k+1] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i][j-k-1] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i+1][j+1] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i+1][j-1] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i-1][j-1] == 3):
+                            grid[i][j] = 3
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i-1][j+1] == 3):
+                            grid[i][j] = 3
+                            success = True
+                    except:
+                        a = 1
+                    if(success):
+                        energy += k
+                        grid[i][k] = 3
+                        try:
+                            if(grid[i+1][j] == 1):
+                                grid[i+1][j] = 3
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i-1][j] == 1):
+                                grid[i-1][j] = 3
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i][j+1] == 1):
+                                grid[i][j+1] = 3
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i][j-1] == 1):
+                                grid[i][j-1] = 3
+                        except:
+                            a = 1
+                        break
+
     if(uninfected1):
         r["p2"] = -1
     else:
@@ -147,5 +221,5 @@ def calparasite(data):
         r["p3"] = -1
     else:
         r["p3"] = tick2
-    r["p4"] = 0
+    r["p4"] = energy
     return r
