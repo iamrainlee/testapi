@@ -39,18 +39,18 @@ def calasteroid(str):
     x = 0
     maxx = mid
     max = calscore(str,mid)
-    while True:
-        x+=1
-        if(max == max_score):
-            break
-        if((mid-x)<0 and (mid+x)>= len(str)):
-            break
-        if((mid-x)>=0 and calscore(str,mid-x)>max):
-            max = calscore(str,mid-x)
-            maxx = mid-x
-        if((mid+x)<len(str) and calscore(str,mid+x)>max):
-            max = calscore(str,mid+x)
-            maxx = mid+x
+    # while True:
+    #     x+=1
+    #     if(max == max_score):
+    #         break
+    #     if((mid-x)<0 and (mid+x)>= len(str)):
+    #         break
+    #     if((mid-x)>=0 and calscore(str,mid-x)>max):
+    #         max = calscore(str,mid-x)
+    #         maxx = mid-x
+    #     if((mid+x)<len(str) and calscore(str,mid+x)>max):
+    #         max = calscore(str,mid+x)
+    #         maxx = mid+x
     r = {}
     r['input'] = str
     r['score'] = max
