@@ -25,3 +25,4 @@ def calparasite(data):
     r["p2"] = 1
     r["p3"] = 1
     r["p4"] = 0
+    return r
