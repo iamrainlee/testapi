@@ -69,6 +69,7 @@ def tictactoe():
                         else:
                             logging.info("Possibly lost game !")
                         gameOn = False
+                        break
                     except:
                         gameOn = False
                         break
