@@ -121,7 +121,7 @@ def calparasite(data):
             tick += 1
             for p1 in r["p1"]:
                 ind = [int(i) for i in p1.split(',')]
-                if(data['grid'][ind[0]][ind[1]] in [0,2,3]):
+                if(data['grid'][ind[0]][ind[1]] != 1):
                     continue
                 elif(r["p1"][p1] == -1):
                     if(grid[ind[0]][ind[1]] == 3):
@@ -133,9 +133,9 @@ def calparasite(data):
     uninfected2 = False
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            if(grid[i][j] in [1,2]):
+            if(grid[i][j] == 1):
                 uninfected = True
-            if(grid2[i][j] in [1,2]):
+            if(grid2[i][j] == 1):
                 uninfected2 = True
         if(uninfected1 and uninfected2):
             break
