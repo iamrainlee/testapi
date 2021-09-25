@@ -18,7 +18,7 @@ def tictactoe():
     played = ['','','','','','','','','']
     youAre = ""
     gameOn = True
-    while gameOn :
+    while gameOn:
         url = 'https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId
         headers = {'Accept': 'text/event-stream'}
         messages = SSEClient(url)
@@ -30,12 +30,11 @@ def tictactoe():
             if type(data) is str:
                 data = json.loads(data)
             try:
-                logging.info(data['youAre'])
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
                     if(data['youAre'] == "O"):
-                        logging.info("Prepare to makemove")
-                        makemove(board,played,youAre,battleId)
+                        logging.info("I am {}".format(youAre))
+                        # makemove(board,played,youAre,battleId)
             except:
                 try:
                     if(data['player'] == youAre):
