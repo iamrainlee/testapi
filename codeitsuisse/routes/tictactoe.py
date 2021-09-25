@@ -25,8 +25,8 @@ def tictactoe():
             data = msg.data
             logging.info("data sent from arena {}".format(data))
             # data = json.loads(msg.data.replace("'",'"'))
-            if type(data) is not str:
-                data = json.loads(data)
+            if type(data) is str:
+                data = json.loads(data.replace('"',"'"))
                 logging.info(data)
             try:
                 logging.info(data['youAre'])
