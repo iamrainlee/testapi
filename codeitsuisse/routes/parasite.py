@@ -56,6 +56,18 @@ def calparasite(data):
                             changed1 = True
                     except:
                         a = 1
+                    try:
+                        if(grid[i-1][j] == 1):
+                            grid[i-1][j] = 3
+                            changed1 = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid[i][j-1] == 1):
+                            grid[i][j-1] = 3
+                            changed1 = True
+                    except:
+                        a = 1
                 if(oldgrid2[i][j] == 3):
                     try:
                         if(grid2[i+1][j] == 1):
@@ -66,6 +78,24 @@ def calparasite(data):
                     try:
                         if(grid2[i][j+1] == 1):
                             grid2[i][j+1] = 3
+                            changed2 = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid2[i-1][j] == 1):
+                            grid2[i-1][j] = 3
+                            changed2 = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid2[i][j-1] == 1):
+                            grid2[i][j-1] = 3
+                            changed2 = True
+                    except:
+                        a = 1
+                    try:
+                        if(grid2[i-1][j-1] == 1):
+                            grid2[i-1][j-1] = 3
                             changed2 = True
                     except:
                         a = 1
