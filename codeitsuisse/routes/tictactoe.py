@@ -22,7 +22,7 @@ def tictactoe():
         url = 'https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId
         headers = {'Accept': 'text/event-stream'}
         messages = SSEClient(url)
-        for msg in messages.events():
+        for msg in messages:
             # r = requests.get('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
             data = msg.data
             logging.info("data sent from arena {}".format(data))
