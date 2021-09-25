@@ -49,17 +49,19 @@ def tictactoe():
                             logging.info(played)
                             if(data['position'] not in board or played[board.index(data['position'])] != ''):
                                 logging.info("Flip table")
+                                gameOn = False
                                 rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                                 requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-                                continue
+                                break
                             played[board.index(data['position'])] = data['player']
                             logging.info("Prepare to makemove")
                             makemove(board,played,youAre,battleId)
                         except:
                             logging.info("Flip table")
+                            gameOn = False
                             rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                             requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-                            continue
+                            break
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == youAre):
@@ -69,7 +71,7 @@ def tictactoe():
                         gameOn = False
                     except:
                         gameOn = False
-                        continue
+                        break
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 
