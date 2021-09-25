@@ -59,4 +59,5 @@ def makemove(board,played,youAre,battleId):
             if(played[i] == ''):
                 data["position"] = board[i]
                 break
+    logging.info("My move :{}".format(data))
     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = json.dumps(data))
