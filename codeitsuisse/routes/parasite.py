@@ -190,7 +190,7 @@ def calparasite(data):
                         a = 1
                     if(success):
                         energy += k
-                        grid[i][k] = 3
+                        grid[i][j] = 3
                         try:
                             if(grid[i+1][j] == 1):
                                 grid[i+1][j] = 3
