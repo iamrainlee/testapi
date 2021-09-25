@@ -47,21 +47,21 @@ def calasteroid(str):
         if (mid-x)>=0:
             y1,y2 = searchstr(str,str[mid-x],mid-x)
             _max= max((y2-y1),_max)
-            if(mid-x == (y1+y2)//2) and y2-y1>=3:
+            if(mid-x == (y1+y2)//2):
                 if(calscore(str,mid-x)>_max):
                     _max= calscore(str,mid-x)
                     maxx = mid-x
         if (mid+x)<len(str):
             y1,y2 = searchstr(str,str[mid+x],mid+x)
             _max= max((y2-y1),_max)
-            if(mid+x == (y1+y2)//2) and y2-y1>=3:
+            if(mid+x == (y1+y2)//2):
                 if(calscore(str,mid+x)>_max):
                     _max= calscore(str,mid+x)
                     maxx = mid+x
         x+=1
     r = {}
     r['input'] = str
-    r['score'] = int(_max)
+    r['score'] = _max
     r['origin'] = maxx
     return r
 
