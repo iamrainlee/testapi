@@ -61,9 +61,11 @@ def makemove(board,played,youAre,battleId):
     data['action'] = "putSymbol"
     if(played.count('') == 9):
         data["position"] = "NW"
+        played[0] = youAre
     else:
         for i in range(len(played)):
             if(played[i] == ''):
+                played[i] = youAre
                 data["position"] = board[i]
                 break
     logging.info("My move :{}".format(data))
