@@ -43,6 +43,9 @@ def tictactoe():
                     if(data['player'] == youAre):
                         continue
                     else:
+                        if(data['position'] not in board or played[board.index(data['position'])] != ''):
+                            rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                            requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                         played[board.index(data['position'])] = data['player']
                         logging.info("Prepare to makemove")
                         makemove(board,played,youAre,battleId)
@@ -72,5 +75,4 @@ def makemove(board,played,youAre,battleId):
                 data["position"] = board[i]
                 break
     logging.info("My move :{}".format(data))
-    r = requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
-    logging.info("requests: {}".format(r))
+    requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
