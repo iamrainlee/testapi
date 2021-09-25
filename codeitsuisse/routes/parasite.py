@@ -51,20 +51,8 @@ def calparasite(data):
                     except:
                         a = 1
                     try:
-                        if(grid[i-1][j] == 1):
-                            grid[i-1][j] = 3
-                            changed1 = True
-                    except:
-                        a = 1
-                    try:
                         if(grid[i][j+1] == 1):
                             grid[i][j+1] = 3
-                            changed1 = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i][j-1] == 1):
-                            grid[i][j-1] = 3
                             changed1 = True
                     except:
                         a = 1
@@ -76,26 +64,8 @@ def calparasite(data):
                     except:
                         a = 1
                     try:
-                        if(grid2[i-1][j] == 1):
-                            grid2[i-1][j] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    try:
                         if(grid2[i][j+1] == 1):
                             grid2[i][j+1] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid2[i][j-1] == 1):
-                            grid2[i][j-1] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid2[i-1][j-1] == 1):
-                            grid2[i-1][j-1] = 3
                             changed2 = True
                     except:
                         a = 1
@@ -166,7 +136,7 @@ def calparasite(data):
                     except:
                         a = 1
                     try:
-                        if(grid[i+1][j+1] == 3):
+                        if(grid[i+k][j+1] == 3):
                             grid[i][j] = 3
                             success = True
                     except:
@@ -191,26 +161,7 @@ def calparasite(data):
                     if(success):
                         energy += k
                         grid[i][j] = 3
-                        try:
-                            if(grid[i+1][j] == 1):
-                                grid[i+1][j] = 3
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i-1][j] == 1):
-                                grid[i-1][j] = 3
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i][j+1] == 1):
-                                grid[i][j+1] = 3
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i][j-1] == 1):
-                                grid[i][j-1] = 3
-                        except:
-                            a = 1
+                        changedGraph(grid,i,j)
                         break
 
     if(uninfected1):
@@ -223,3 +174,29 @@ def calparasite(data):
         r["p3"] = tick2
     r["p4"] = energy
     return r
+
+def changedGraph(grid,i,j):
+    try:
+        if(grid[i+1][j] == 1):
+            grid[i+1][j] = 3
+            changedGraph(grid,i+1,j)
+    except:
+        a = 1
+    try:
+        if(grid[i-1][j] == 1):
+            grid[i-1][j] = 3
+            changedGraph(grid,i-1,j)
+    except:
+        a = 1
+    try:
+        if(grid[i][j+1] == 1):
+            grid[i][j+1] = 3
+            changedGraph(grid,i,j+1)
+    except:
+        a = 1
+    try:
+        if(grid[i][j-1] == 1):
+            grid[i][j-1] = 3
+            changedGraph(grid,i,j-1)
+    except:
+        a = 1
