@@ -25,7 +25,7 @@ def tictactoe():
             r = requests.get('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
             logging.info("data sent from arena {}".format(r))
             # data = json.loads(msg.data.replace("'",'"'))
-            data = r.json()
+            data = (r.replace("'",'"')).json()
             try:
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
