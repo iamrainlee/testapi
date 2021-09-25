@@ -14,27 +14,36 @@ def tictactoe():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     battleId = data.get("battleId")
-    messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
     board = ['NW','N','NE','W','C','E','SW','S','SE']
     played = ['','','','','','','','','']
     youAre = ""
-    for msg in messages:
-        logging.info("data sent from arena {}".format(msg))
-        data = msg
-        try:
-            if( data['youAre'] != ""):
-                youAre = data['youAre']
-                makemove(board,played,youAre,battleId)
-        except:
+    gameOn = True
+    while gameOn :
+        messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
+        for msg in messages:
+            logging.info("data sent from arena {}".format(msg))
+            data = msg
             try:
-                if(data['player'] == youAre):
-                    continue
-                else:
-                    if(data["action"] == "putSymbol"):
-                        played[board.index(data['position'])] = data['player']
+                if( data['youAre'] != ""):
+                    youAre = data['youAre']
+                    if(data['youAre'] == "O"):
                         makemove(board,played,youAre,battleId)
             except:
-                continue
+                try:
+                    if(data['player'] == youAre):
+                        continue
+                    else:
+                        if(data["action"] == "putSymbol"):
+                            played[board.index(data['position'])] = data['player']
+                            makemove(board,played,youAre,battleId)
+                except:
+                    try:
+                        if(data['winner'] == "draw" or data['winner'] == "O"):
+                            logging.info("Win game !")
+                        else:
+                            logging.info("Possibly lost game !")
+                        gameOn = False
+                    continue
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 
