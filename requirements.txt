@@ -26,4 +26,4 @@ virtualenv-clone==0.2.6
 Werkzeug==0.14.1
 asyncio==3.4.3
 aiohttp==3.7.4
-aiosseclient==0.0.1
+git+https://github.com/ebraminio/aiosseclient
