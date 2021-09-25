@@ -183,18 +183,16 @@ def calparasite(data):
                                 success = True
                         except:
                             a = 1
-                        try:
-                            if(grid[i-k][j-k] == 3 and (j-k) >= 0 and (i-k) >= 0):
+                        if((i-k)>=0):
+                            if(grid[i-k][j-k] == 3 and (j-k) >= 0):
                                 tenergy = min(k+k,tenergy)
                                 success = True
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i-k][j+k] == 3 and (i-k) >= 0):
-                                tenergy = min(k+k,tenergy)
-                                success = True
-                        except:
-                            a = 1
+                            try:
+                                if(grid[i-k][j+k] == 3 and (i-k) >= 0):
+                                    tenergy = min(k+k,tenergy)
+                                    success = True
+                            except:
+                                a = 1
                         for l in range(1,k):
                             try:
                                 if(grid[i+k][j+l] == 3):
@@ -202,36 +200,32 @@ def calparasite(data):
                                     success = True
                             except:
                                 a = 1
-                            try:
-                                if(grid[i+k][j-l] == 3 and (j-l) >= 0):
+                            if(j-l)>=0:
+                                try:
+                                    if(grid[i+k][j-l] == 3):
+                                        tenergy = min(k+l,tenergy)
+                                        success = True
+                                except:
+                                    a = 1
+                                if(grid[i-k][j-l] == 3 and (i-k) >= 0):
                                     tenergy = min(k+l,tenergy)
                                     success = True
-                            except:
-                                a = 1
                             try:
                                 if(grid[i-k][j+l] == 3 and (i-k) >= 0):
                                     tenergy = min(k+l,tenergy)
                                     success = True
                             except:
                                 a = 1
-                            try:
-                                if(grid[i-k][j-l] == 3 and (i-k) >= 0 and (j-l) >= 0):
+                            if(i-l) >= 0:
+                                if(grid[i-l][j-k] == 3 and (j-k) >= 0):
                                     tenergy = min(k+l,tenergy)
                                     success = True
-                            except:
-                                a = 1
-                            try:
-                                if(grid[i-l][j-k] == 3 and (i-l) >= 0 and (j-k) >= 0):
-                                    tenergy = min(k+l,tenergy)
-                                    success = True
-                            except:
-                                a = 1
-                            try:
-                                if(grid[i-l][j+k] == 3 and (i-l) >= 0):
-                                    tenergy = min(k+l,tenergy)
-                                    success = True
-                            except:
-                                a = 1
+                                try:
+                                    if(grid[i-l][j+k] == 3):
+                                        tenergy = min(k+l,tenergy)
+                                        success = True
+                                except:
+                                    a = 1
                             try:
                                 if(grid[i+l][j-k] == 3 and (j-k) >= 0):
                                     tenergy = min(k+l,tenergy)
@@ -269,7 +263,7 @@ def changedGraph(grid,i,j):
     except:
         a = 1
     try:
-        if(grid[i-1][j] == 1):
+        if(grid[i-1][j] == 1 and (i-1) >= 0):
             grid[i-1][j] = 3
             changedGraph(grid,i-1,j)
     except:
@@ -281,7 +275,7 @@ def changedGraph(grid,i,j):
     except:
         a = 1
     try:
-        if(grid[i][j-1] == 1):
+        if(grid[i][j-1] == 1 and (j-1)>=0):
             grid[i][j-1] = 3
             changedGraph(grid,i,j-1)
     except:
