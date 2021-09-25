@@ -20,7 +20,7 @@ def tictactoe():
     youAre = ""
     for msg in messages:
         logging.info("data sent from arena {}".format(msg))
-        data = msg.get_json()
+        data = msg
         try:
             if( data['youAre'] != ""):
                 youAre = data['youAre']
