@@ -21,8 +21,8 @@ def tictactoe():
     while gameOn :
         messages = SSEClient('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
         for msg in messages:
-            logging.info("data sent from arena {}".format(msg.data.battleId))
-            data = msg
+            logging.info("data sent from arena {}".format(msg.data))
+            data = msg.data
             try:
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
