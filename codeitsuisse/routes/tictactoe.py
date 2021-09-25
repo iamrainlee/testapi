@@ -12,7 +12,7 @@ from codeitsuisse import app
 logger = logging.getLogger(__name__)
 
 @app.route('/tic-tac-toe', methods=['POST'])
-async def tictactoe():
+def tictactoe():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     battleId = data.get("battleId")
