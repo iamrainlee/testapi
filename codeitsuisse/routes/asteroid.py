@@ -45,16 +45,17 @@ def calasteroid(str):
         if((mid-x)<0 and (mid+x)>= len(str)):
             break
         y1,y2 = searchstr(str,str[mid-x],mid-x)
-        logging.info((y1+y2)//2)
-        if(mid-x == (y1+y2)//2):
-            if((mid-x)>=0 and calscore(str,mid-x)>max):
-                max = calscore(str,mid-x)
-                maxx = mid-x
-        y1,y2 = searchstr(str,str[mid+x],mid+x)
-        if(mid+x == (y1+y2)//2):
-            if((mid+x)<len(str) and calscore(str,mid+x)>max):
-                max = calscore(str,mid+x)
-                maxx = mid+x
+        if (mid-x)>=0:
+            if(mid-x == (y1+y2)//2):
+                if(calscore(str,mid-x)>max):
+                    max = calscore(str,mid-x)
+                    maxx = mid-x
+        if (mid+x)<len(str):
+            y1,y2 = searchstr(str,str[mid+x],mid+x)
+            if(mid+x == (y1+y2)//2):
+                if(calscore(str,mid+x)>max):
+                    max = calscore(str,mid+x)
+                    maxx = mid+x
         x+=1
     r = {}
     r['input'] = str
