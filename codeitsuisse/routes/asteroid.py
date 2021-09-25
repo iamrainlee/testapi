@@ -45,6 +45,7 @@ def calasteroid(str):
         if((mid-x)<0 and (mid+x)>= len(str)):
             break
         y1,y2 = searchstr(str,str[mid-x],mid-x)
+        logger.info("{} {}: {}".format(y1,y2,str))
         if (mid-x)>=0:
             if(mid-x == (y1+y2)//2):
                 if(calscore(str,mid-x)>max):
