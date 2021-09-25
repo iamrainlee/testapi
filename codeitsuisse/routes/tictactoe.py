@@ -94,7 +94,7 @@ def makemove(board,played,youAre,battleId):
             if(played.count('') == 8):
                 data["position"] = "C"
                 played[4] = youAre
-            else if(played.count('') == 7):
+            elif(played.count('') == 7):
                 if(played[4] != ''):
                     data["position"] = "SE"
                     played[8] = youAre
