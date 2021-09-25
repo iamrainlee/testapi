@@ -45,13 +45,21 @@ def tictactoe():
                     if(data['player'] == youAre):
                         continue
                     else:
-                        logging.info(played)
-                        if(data['position'] not in board or played[board.index(data['position'])] != ''):
+                        try:
+                            logging.info(played)
+                            if(data['position'] not in board or played[board.index(data['position'])] != ''):
+                                logging.info("Flip table")
+                                rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                                requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
+                                continue
+                            played[board.index(data['position'])] = data['player']
+                            logging.info("Prepare to makemove")
+                            makemove(board,played,youAre,battleId)
+                        except:
+                            logging.info("Flip table")
                             rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                             requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-                        played[board.index(data['position'])] = data['player']
-                        logging.info("Prepare to makemove")
-                        makemove(board,played,youAre,battleId)
+                            continue
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == youAre):
