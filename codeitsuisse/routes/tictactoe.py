@@ -39,10 +39,9 @@ def tictactoe():
                     if(data['player'] == youAre):
                         continue
                     else:
-                        if(data["action"] == "putSymbol"):
-                            played[board.index(data['position'])] = data['player']
-                            logging.info("Prepare to makemove")
-                            makemove(board,played,youAre,battleId)
+                        played[board.index(data['position'])] = data['player']
+                        logging.info("Prepare to makemove")
+                        makemove(board,played,youAre,battleId)
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == "O"):
