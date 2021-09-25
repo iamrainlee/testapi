@@ -43,6 +43,7 @@ def tictactoe():
                     if(data['player'] == youAre):
                         continue
                     else:
+                        logging.info(played)
                         if(data['position'] not in board or played[board.index(data['position'])] != ''):
                             rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                             requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
@@ -65,14 +66,44 @@ def tictactoe():
 def makemove(board,played,youAre,battleId):
     data = {}
     data['action'] = "putSymbol"
+    data["position"] = ""
     if(played.count('') == 9):
         data["position"] = "NW"
         played[0] = youAre
     else:
         for i in range(len(played)):
             if(played[i] == ''):
-                played[i] = youAre
-                data["position"] = board[i]
-                break
+                temp = played[:]
+                temp[i] = youAre
+                if(checkwin(temp,youAre))
+                    played[i] = youAre
+                    data["position"] = board[i]
+                    break
+        if(data["position"] == ""):
+            for i in range(len(played)):
+                if(played[i] == ''):
+                    played[i] = youAre
+                    data["position"] = board[i]
+                    break
     logging.info("My move :{}".format(data))
     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
+
+def checkwin(played,youAre):
+    if(played[0] == youAre and played[3] == youAre and played[6] == youAre):
+        return True
+    elif(played[1] == youAre and played[4] == youAre and played[7] == youAre):
+        return True
+    elif(played[2] == youAre and played[5] == youAre and played[8] == youAre):
+        return True
+    elif (played[0] == youAre and played[1] == youAre and played[2] == youAre):
+        return True
+    elif(played[3] == youAre and played[4] == youAre and played[5] == youAre):
+        return True
+    elif (played[6] == youAre and played[7] == youAre and played[8] == youAre):
+        return True
+    elif(played[0] == youAre and played[4] == youAre and played[8] == youAre):
+        return True
+    elif (played[2] == youAre and played[4] == youAre and played[6] == youAre):
+        return True
+    else:
+        return False
