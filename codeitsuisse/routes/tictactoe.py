@@ -43,7 +43,12 @@ def tictactoe():
             except:
                 try:
                     if(data['player'] == youAre):
-                        continue
+                        logging.info("Flip table")
+                        gameOn = False
+                        rdata = {}
+                        rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                        requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
+                        break
                     else:
                         try:
                             logging.info(played)
