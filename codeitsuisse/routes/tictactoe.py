@@ -23,10 +23,11 @@ def tictactoe():
         for msg in messages:
             # r = requests.get('https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId)
             data = msg.data
-            data = data.replace("'",'"')
             logging.info("data sent from arena {}".format(data))
             # data = json.loads(msg.data.replace("'",'"'))
-            data = json.loads(data)
+            if type(data) is not str:
+                data = json.loads(data)
+                logging.info(data)
             try:
                 if( data['youAre'] != ""):
                     youAre = data['youAre']
