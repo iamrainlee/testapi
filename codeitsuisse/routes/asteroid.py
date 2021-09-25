@@ -19,19 +19,19 @@ def asteroid():
     return json.dumps(result)
 
 def calasteroid(str):
-    dict = {}
-    for i in set(str):
-        dict[i] = 0
-    for i in str:
-        dict[i] += 1
-    max_score = 0
-    for i in dict:
-        if(dict[i] >= 10):
-            max_score += dict[i]*2
-        elif(dict[i] >= 7):
-            max_score += dict[i]*1.5
-        else:
-            max_score += dict[i]
+    # dict = {}
+    # for i in set(str):
+    #     dict[i] = 0
+    # for i in str:
+    #     dict[i] += 1
+    # max_score = 0
+    # for i in dict:
+    #     if(dict[i] >= 10):
+    #         max_score += dict[i]*2
+    #     elif(dict[i] >= 7):
+    #         max_score += dict[i]*1.5
+    #     else:
+    #         max_score += dict[i]
     score = 0
     mid = len(str)//2
     touchedMin = False
@@ -40,20 +40,21 @@ def calasteroid(str):
     maxx = mid
     max = 1
     while True:
-        if(max == max_score):
-            break
+        # if(max == max_score):
+        #     break
         if((mid-x)<0 and (mid+x)>= len(str)):
             break
-        y1,y2 = searchstr(str,str[mid-x],mid-x)
-        logger.info("{} {}: {}".format(y1,y2,str))
         if (mid-x)>=0:
-            if(mid-x == (y1+y2)//2):
+            y1,y2 = searchstr(str,str[mid-x],mid-x)
+            maxx = max(y2-y1,maxx)
+            if(mid-x == (y1+y2)//2) and y2-y1>=3:
                 if(calscore(str,mid-x)>max):
                     max = calscore(str,mid-x)
                     maxx = mid-x
         if (mid+x)<len(str):
             y1,y2 = searchstr(str,str[mid+x],mid+x)
-            if(mid+x == (y1+y2)//2):
+            maxx = max(y2-y1,maxx)
+            if(mid+x == (y1+y2)//2) and y2-y1>=3:
                 if(calscore(str,mid+x)>max):
                     max = calscore(str,mid+x)
                     maxx = mid+x
