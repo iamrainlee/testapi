@@ -77,7 +77,7 @@ def makemove(board,played,youAre,battleId):
             if(played[i] == ''):
                 temp = played[:]
                 temp[i] = youAre
-                if(checkwin(temp,youAre))
+                if(checkwin(temp,youAre)):
                     played[i] = youAre
                     data["position"] = board[i]
                     break
