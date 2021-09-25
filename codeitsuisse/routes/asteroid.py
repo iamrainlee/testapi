@@ -49,7 +49,7 @@ def calasteroid(str):
             _max= max((y2-y1),_max)
             if(mid-x == (y1+y2)//2) and y2-y1>=3:
                 if(calscore(str,mid-x)>_max):
-                    __max= calscore(str,mid-x)
+                    _max= calscore(str,mid-x)
                     maxx = mid-x
         if (mid+x)<len(str):
             y1,y2 = searchstr(str,str[mid+x],mid+x)
