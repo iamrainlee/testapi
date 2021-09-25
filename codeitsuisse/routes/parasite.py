@@ -71,56 +71,42 @@ def calparasite(data):
                     except:
                         a = 1
                 if(oldgrid2[i][j] == 3):
-                    logging.info("{},{}: {}".format(i,j,grid2))
                     try:
                         if(grid2[i+1][j] == 1):
                             grid2[i+1][j] = 3
                             changed2 = True
                     except:
                         a = 1
-                    logging.info("{},{}: 1{}".format(i,j,grid2))
                     try:
                         if(grid2[i][j+1] == 1):
                             grid2[i][j+1] = 3
                             changed2 = True
                     except:
                         a = 1
-                    logging.info("{},{}: 2{}".format(i,j,grid2))
-                    try:
-                        if(grid2[i-1][j] == 1 and (i-1) >= 0):
+                    if((i-1) >= 0):
+                        if(grid2[i-1][j] == 1):
                             grid2[i-1][j] = 3
                             changed2 = True
-                    except:
-                        a = 1
-                    logging.info("{},{}: 3{}".format(i,j,grid2))
-                    try:
-                        if(grid2[i][j-1] == 1 and (j-1) >= 0):
+                        try:
+                            if(grid2[i-1][j+1] == 1):
+                                grid2[i-1][j+1] = 3
+                                changed2 = True
+                        except:
+                            a = 1
+                    if((j-1) >= 0):
+                        if(grid2[i][j-1] == 1):
                             grid2[i][j-1] = 3
                             changed2 = True
-                    except:
-                        a = 1
-                    logging.info("{},{}: 4{}".format(i,j,grid2))
-                    try:
-                        if(grid2[i-1][j-1] == 1 and (i-1) >= 0 and (j-1) >= 0):
-                            grid2[i-1][j-1] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    logging.info("{},{}: 5{}".format(i,j,grid2))
-                    try:
-                        if(grid2[i+1][j-1] == 1 and (j-1) >= 0):
-                            grid2[i+1][j-1] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    logging.info("{},{}: 6{}".format(i,j,grid2))
-                    try:
-                        if(grid2[i-1][j+1] == 1 and (i-1) >= 0):
-                            grid2[i-1][j+1] = 3
-                            changed2 = True
-                    except:
-                        a = 1
-                    logging.info("{},{}: 7{}".format(i,j,grid2))
+                        try:
+                            if(grid2[i+1][j-1] == 1):
+                                grid2[i+1][j-1] = 3
+                                changed2 = True
+                        except:
+                            a = 1
+                        if((i-1) >= 0):
+                            if(grid2[i-1][j-1] == 1):
+                                grid2[i-1][j-1] = 3
+                                changed2 = True
                     try:
                         if(grid2[i+1][j+1] == 1):
                             grid2[i+1][j+1] = 3
