@@ -1,5 +1,6 @@
 import logging
 import json
+import copy
 
 from flask import request, jsonify
 
@@ -25,22 +26,23 @@ def calparasite(data):
         r["p1"][i] = -1
     grid = []
     for i in data['grid']:
-        grid.append(i[:])
+        grid.append(i.copy())
     grid2 = []
     for i in data['grid']:
-        grid2.append(i[:])
+        grid2.append(i.copy())
     changed = True
     tick = 0
     tick2 = 0
     while changed:
         changed1 = False
         changed2 = False
-        oldgrid = []
-        for i in grid:
-            oldgrid.append(i[:])
-        oldgrid2 = []
-        for i in grid2:
-            oldgrid2.append(i[:])
+        oldgrid = copy.deepcopy(grid)
+        # for i in grid:
+        #     oldgrid.append(i.copy())
+        oldgrid2 = copy.deepcopy(grid2)
+        # for i in grid2:
+        #     oldgrid2.append(i.copy())
+        # oldgrid[0][0] = 4
         for i in range(len(grid)):
             for j in range(len(grid[i])):
                 if(oldgrid[i][j] == 3):
@@ -57,60 +59,68 @@ def calparasite(data):
                     except:
                         a = 1
                     try:
-                        if(grid[i-1][j] == 1):
+                        if(grid[i-1][j] == 1 and (i-1) >= 0):
                             grid[i-1][j] = 3
                             changed1 = True
                     except:
                         a = 1
                     try:
-                        if(grid[i][j-1] == 1):
+                        if(grid[i][j-1] == 1 and (j-1) >= 0):
                             grid[i][j-1] = 3
                             changed1 = True
                     except:
                         a = 1
                 if(oldgrid2[i][j] == 3):
+                    logging.info("{},{}: {}".format(i,j,grid2))
                     try:
                         if(grid2[i+1][j] == 1):
                             grid2[i+1][j] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 1{}".format(i,j,grid2))
                     try:
                         if(grid2[i][j+1] == 1):
                             grid2[i][j+1] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 2{}".format(i,j,grid2))
                     try:
-                        if(grid2[i-1][j] == 1):
+                        if(grid2[i-1][j] == 1 and (i-1) >= 0):
                             grid2[i-1][j] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 3{}".format(i,j,grid2))
                     try:
-                        if(grid2[i][j-1] == 1):
+                        if(grid2[i][j-1] == 1 and (j-1) >= 0):
                             grid2[i][j-1] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 4{}".format(i,j,grid2))
                     try:
-                        if(grid2[i-1][j-1] == 1):
+                        if(grid2[i-1][j-1] == 1 and (i-1) >= 0 and (j-1) >= 0):
                             grid2[i-1][j-1] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 5{}".format(i,j,grid2))
                     try:
-                        if(grid2[i+1][j-1] == 1):
+                        if(grid2[i+1][j-1] == 1 and (j-1) >= 0):
                             grid2[i+1][j-1] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 6{}".format(i,j,grid2))
                     try:
-                        if(grid2[i-1][j+1] == 1):
+                        if(grid2[i-1][j+1] == 1 and (i-1) >= 0):
                             grid2[i-1][j+1] = 3
                             changed2 = True
                     except:
                         a = 1
+                    logging.info("{},{}: 7{}".format(i,j,grid2))
                     try:
                         if(grid2[i+1][j+1] == 1):
                             grid2[i+1][j+1] = 3
@@ -128,6 +138,7 @@ def calparasite(data):
                         r["p1"][p1] = tick
         if(changed2):
             tick2 += 1
+        logging.info("grid2: {}".format(grid2))
         changed = changed1 or changed2
     uninfected1 = False
     uninfected2 = False
@@ -140,117 +151,118 @@ def calparasite(data):
                 uninfected2 = True
         if(uninfected1 and uninfected2):
             break
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if(grid[i][j] == 1):
-                tenergy = 100
-                success = False
-                for k in range(1,len(grid)):
-                    if(tenergy<=k):
-                        break
-                    try:
-                        if(grid[i+k+1][j] == 3):
-                            tenergy = min(k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i-k+1][j] == 3):
-                            tenergy = min(k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i][j+k+1] == 3):
-                            tenergy = min(k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i][j-k-1] == 3):
-                            tenergy = min(k,tenergy)
-                            success = True
-                    except:
-                        a = 1
+    if(not uninfected1):
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if(grid[i][j] == 1):
+                    tenergy = 100
+                    success = False
+                    for k in range(1,len(grid)):
+                        if(tenergy<=k):
+                            break
+                        try:
+                            if(grid[i+k+1][j] == 3):
+                                tenergy = min(k,tenergy)
+                                success = True
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i-k-1][j] == 3 and (i-k-1) >= 0):
+                                tenergy = min(k,tenergy)
+                                success = True
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i][j+k+1] == 3):
+                                tenergy = min(k,tenergy)
+                                success = True
+                        except:
+                            a = 1
+                        try:
+                            if(grid[i][j-k-1] == 3 and (j-k-1) >= 0):
+                                tenergy = min(k,tenergy)
+                                success = True
+                        except:
+                            a = 1
 
-                    try:
-                        if(grid[i+k][j+k] == 3):
-                            tenergy = min(k+k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i+k][j-k] == 3):
-                            tenergy = min(k+k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i-k][j-k] == 3):
-                            tenergy = min(k+k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    try:
-                        if(grid[i-k][j+k] == 3):
-                            tenergy = min(k+k,tenergy)
-                            success = True
-                    except:
-                        a = 1
-                    for l in range(1,k):
                         try:
-                            if(grid[i+k][j+l] == 3):
-                                tenergy = min(k+l,tenergy)
+                            if(grid[i+k][j+k] == 3):
+                                tenergy = min(k+k,tenergy)
                                 success = True
                         except:
                             a = 1
                         try:
-                            if(grid[i+k][j-l] == 3):
-                                tenergy = min(k+l,tenergy)
+                            if(grid[i+k][j-k] == 3 and (j-k) >= 0):
+                                tenergy = min(k+k,tenergy)
                                 success = True
                         except:
                             a = 1
                         try:
-                            if(grid[i-k][j+l] == 3):
-                                tenergy = min(k+l,tenergy)
+                            if(grid[i-k][j-k] == 3 and (j-k) >= 0 and (i-k) >= 0):
+                                tenergy = min(k+k,tenergy)
                                 success = True
                         except:
                             a = 1
                         try:
-                            if(grid[i-k][j-l] == 3):
-                                tenergy = min(k+l,tenergy)
+                            if(grid[i-k][j+k] == 3 and (i-k) >= 0):
+                                tenergy = min(k+k,tenergy)
                                 success = True
                         except:
                             a = 1
-                        try:
-                            if(grid[i-l][j-k] == 3):
-                                tenergy = min(k+l,tenergy)
-                                success = True
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i-l][j+k] == 3):
-                                tenergy = min(k+l,tenergy)
-                                success = True
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i+l][j-k] == 3):
-                                tenergy = min(k+l,tenergy)
-                                success = True
-                        except:
-                            a = 1
-                        try:
-                            if(grid[i+l][j+k] == 3):
-                                tenergy = min(k+l,tenergy)
-                                success = True
-                        except:
-                            a = 1
-                if(success):
-                    energy += tenergy
-                    grid[i][j] = 3
-                    changedGraph(grid,i,j)
-                    break
+                        for l in range(1,k):
+                            try:
+                                if(grid[i+k][j+l] == 3):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i+k][j-l] == 3 and (j-l) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i-k][j+l] == 3 and (i-k) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i-k][j-l] == 3 and (i-k) >= 0 and (j-l) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i-l][j-k] == 3 and (i-l) >= 0 and (j-k) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i-l][j+k] == 3 and (i-l) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i+l][j-k] == 3 and (j-k) >= 0):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                            try:
+                                if(grid[i+l][j+k] == 3):
+                                    tenergy = min(k+l,tenergy)
+                                    success = True
+                            except:
+                                a = 1
+                    if(success):
+                        energy += tenergy
+                        grid[i][j] = 3
+                        changedGraph(grid,i,j)
+                        break
 
     if(uninfected1):
         r["p2"] = -1
