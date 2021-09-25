@@ -72,8 +72,7 @@ def tictactoe():
                     except:
                         gameOn = False
                         break
-    logging.info("My result :{}".format(result))
-    return json.dumps(result)
+    return
 
 def makemove(board,played,youAre,battleId):
     data = {}
@@ -92,11 +91,19 @@ def makemove(board,played,youAre,battleId):
                     data["position"] = board[i]
                     break
         if(data["position"] == ""):
-            for i in range(len(played)):
-                if(played[i] == ''):
-                    played[i] = youAre
-                    data["position"] = board[i]
-                    break
+            if(played.count('') == 8):
+                data["position"] = "C"
+                played[4] = youAre
+            else if(played.count('') == 7):
+                if(played[4] != ''):
+                    data["position"] = "SE"
+                    played[8] = youAre
+            else:
+                for i in range(len(played)):
+                    if(played[i] == ''):
+                        played[i] = youAre
+                        data["position"] = board[i]
+                        break
     logging.info("My move :{}".format(data))
     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
 
