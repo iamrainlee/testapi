@@ -35,33 +35,33 @@ def calasteroid(str):
     score = 0
     mid = len(str)//2
     touchedMin = False
-    touchedMax = True
+    touched_max= True
     x = 0
     maxx = mid
-    max = 1
+    _max= 1
     while True:
-        # if(max == max_score):
+        # if(_max== max_score):
         #     break
         if((mid-x)<0 and (mid+x)>= len(str)):
             break
         if (mid-x)>=0:
             y1,y2 = searchstr(str,str[mid-x],mid-x)
-            max = max((y2-y1),max)
+            _max= max((y2-y1),_max)
             if(mid-x == (y1+y2)//2) and y2-y1>=3:
-                if(calscore(str,mid-x)>max):
-                    max = calscore(str,mid-x)
+                if(calscore(str,mid-x)>_max):
+                    __max= calscore(str,mid-x)
                     maxx = mid-x
         if (mid+x)<len(str):
             y1,y2 = searchstr(str,str[mid+x],mid+x)
-            max = max((y2-y1),max)
+            _max= max((y2-y1),_max)
             if(mid+x == (y1+y2)//2) and y2-y1>=3:
-                if(calscore(str,mid+x)>max):
-                    max = calscore(str,mid+x)
+                if(calscore(str,mid+x)>_max):
+                    _max= calscore(str,mid+x)
                     maxx = mid+x
         x+=1
     r = {}
     r['input'] = str
-    r['score'] = int(max)
+    r['score'] = int(_max)
     r['origin'] = maxx
     return r
 
