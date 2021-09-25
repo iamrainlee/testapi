@@ -175,25 +175,25 @@ def calparasite(data):
 
                     try:
                         if(grid[i+k][j+k] == 3):
-                            tenergy = min(k*k,tenergy)
+                            tenergy = min(k+k,tenergy)
                             success = True
                     except:
                         a = 1
                     try:
                         if(grid[i+k][j-k] == 3):
-                            tenergy = min(k*k,tenergy)
+                            tenergy = min(k+k,tenergy)
                             success = True
                     except:
                         a = 1
                     try:
                         if(grid[i-k][j-k] == 3):
-                            tenergy = min(k*k,tenergy)
+                            tenergy = min(k+k,tenergy)
                             success = True
                     except:
                         a = 1
                     try:
                         if(grid[i-k][j+k] == 3):
-                            tenergy = min(k*k,tenergy)
+                            tenergy = min(k+k,tenergy)
                             success = True
                     except:
                         a = 1
