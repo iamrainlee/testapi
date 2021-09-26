@@ -72,7 +72,7 @@ def calstock(d):
     for i in nx.astar_path(G,entry,target,dist):
         cost += grid[i[0]][i[1]]
     cost -= grid[0][0]
-    # r["minimumCost"] = cost
+    r["minimumCost"] = 0
     return r
 def dist(a,b):
     global curgrid
