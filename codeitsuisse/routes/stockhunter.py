@@ -27,20 +27,20 @@ def calstock(d):
     width = max(entry[0],target[0]) - leftmost + 1
     upmost = min(entry[1],target[1])
     height = max(entry[1],target[1]) - upmost + 1
-    entry = (entry[0]-leftmost,entry[1]-upmost)
-    target = (target[0]-leftmost,target[1]-upmost)
+    # entry = (entry[0]-leftmost,entry[1]-upmost)
+    # target = (target[0]-leftmost,target[1]-upmost)
     grid = []
     outgrid = []
     riskLevel = []
-    for i in range(height):
+    for i in range(height+upmost):
         riskLevel.append([])
         grid.append([])
-        outgrid.append([])
-        for j in range(width):
+        for j in range(width+leftmost):
             grid[i].append(0)
-            outgrid[i].append('')
             riskIndex = 0
-            if(i == 0):
+            if(i == 0 and j == 0):
+                riskIndex = 0
+            elif(i == 0):
                 riskIndex = j * d['horizontalStepper']
             elif(j == 0):
                 riskIndex = i * d['verticalStepper']
@@ -50,9 +50,14 @@ def calstock(d):
                 riskIndex = 0
             riskLevel[i].append((riskIndex+d['gridDepth'])%d['gridKey'])
             grid[i][j] = 3 - riskLevel[i][j]%3
-            if(grid[i][j] == 3):
+
+    for i in range(height):
+        outgrid.append([])
+        for j in range(width):
+            outgrid[i].append('')
+            if(grid[i+upmost][j+leftmost] == 3):
                 outgrid[i][j] = "L"
-            elif(grid[i][j] == 2):
+            elif(grid[i+upmost][j+leftmost] == 2):
                 outgrid[i][j] = "M"
             else:
                 outgrid[i][j] = "S"
@@ -72,15 +77,4 @@ def dist(a,b):
     global curgrid
     (x1, y1) = a
     (x2, y2) = b
-    # cost = 0
-    # logging.info("{}{}: {}".format(x1,y1,curgrid[x1][y1]))
-    # for i in range(1,x2-x1+1):
-    #     cost += curgrid[x1+i][y1]
-    # for i in range(1,y2-y1+1):
-    #     cost += curgrid[x2][y1+i]
     return curgrid[x1][y1]
-    # if(abs(x2-x1)>0 and abs(y2-y1)>0):
-    #     return 10000
-    # else:
-    #     logging.info("{}{}: {}".format(x1,y1,curgrid[x2][y2]))
-    #     return curgrid[x1][y1]
