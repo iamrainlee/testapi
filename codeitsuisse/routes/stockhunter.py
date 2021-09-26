@@ -63,7 +63,7 @@ def calstock(d):
                 outgrid[i][j] = "S"
     global curgrid
     curgrid = grid
-    G=nx.grid_graph(dim=[width,height])
+    G=nx.grid_graph(dim=[width+leftmost+3,height+upmost+3])
     r = {}
     r["gridMap"] = outgrid
     cost = 0
