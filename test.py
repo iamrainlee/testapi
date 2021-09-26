@@ -1,26 +1,16 @@
-import logging
 import json
 import copy
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from flask import request, jsonify
-import random
-
-from codeitsuisse import app
-
-logger = logging.getLogger(__name__)
-
 curgrid = []
-
-@app.route('/stock-hunter', methods=['POST'])
 def stockhunter():
-    data = request.get_json()
-    logging.info("Data: {}".format(data))
+    data = json.loads('[{"entryPoint": {"first": 0, "second": 0}, "targetPoint": {"first": 3, "second": 3}, "gridDepth": 778, "gridKey": 20183, "horizontalStepper": 16807, "verticalStepper": 48271}]')
+    # logging.info("Data: {}".format(data))
     result = []
     for i in data:
         result.append(calstock(i))
-    logging.info("My result :{}".format(result))
+    # logging.info("My result :{}".format(result))
     return json.dumps(result)
 def calstock(d):
     entry = (d["entryPoint"]["first"],d["entryPoint"]["second"])
@@ -35,10 +25,10 @@ def calstock(d):
     outgrid = []
     riskLevel = []
     cost = {}
-    for i in range(height+upmost+15):
+    for i in range(height+upmost):
         riskLevel.append([])
         grid.append([])
-        for j in range(width+leftmost+15):
+        for j in range(width+leftmost):
             grid[i].append(0)
             riskIndex = 0
             if(i == 0 and j == 0):
@@ -68,7 +58,7 @@ def calstock(d):
                 outgrid[i][j] = "S"
     global curgrid
     curgrid = grid
-    G=nx.grid_graph(dim=[width+leftmost+15,height+upmost+15])
+    G=nx.grid_graph(dim=[width+leftmost,height+upmost])
     nx.set_edge_attributes(G, cost)
     pos = nx.spring_layout(G)
     nx.draw(G, pos, with_labels = True, node_color="#f86e00")
@@ -81,7 +71,7 @@ def calstock(d):
     for i in nx.astar_path(G,entry,target,dist,weight="cost"):
         cost += grid[i[0]][i[1]]
     cost -= grid[0][0]
-    logging.info(nx.astar_path(G,entry,target,dist,weight="cost"))
+    # logging.info(nx.astar_path(G,entry,target,dist,weight="cost"))
     r["minimumCost"] = cost
     return r
 def dist(a,b):
@@ -93,3 +83,6 @@ def dist(a,b):
     # (x1, y1) = a
     # (x2, y2) = b
     # return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+
+
+print(stockhunter())
