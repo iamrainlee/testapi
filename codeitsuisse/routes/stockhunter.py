@@ -70,11 +70,11 @@ def calstock(d):
     curgrid = grid
     G=nx.grid_graph(dim=[width+leftmost+15,height+upmost+15])
     nx.set_edge_attributes(G, cost)
-    pos = nx.spring_layout(G)
-    nx.draw(G, pos, with_labels = True, node_color="#f86e00")
-    edge_labels = nx.get_edge_attributes(G, "cost")
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-    plt.show()
+    # pos = nx.spring_layout(G)
+    # nx.draw(G, pos, with_labels = True, node_color="#f86e00")
+    # edge_labels = nx.get_edge_attributes(G, "cost")
+    # nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+    # plt.show()
     r = {}
     r["gridMap"] = outgrid
     cost = 0
