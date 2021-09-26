@@ -124,7 +124,7 @@ def calparasite(data):
                         r["p1"][p1] = tick
         if(changed2):
             tick2 += 1
-        logging.info("grid2: {}".format(grid2))
+        # logging.info("grid2: {}".format(grid2))
         changed = changed1 or changed2
     uninfected1 = False
     uninfected2 = False
