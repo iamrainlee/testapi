@@ -94,6 +94,19 @@ def makemove(board,played,youAre,battleId):
                     data["position"] = board[i]
                     break
         if(data["position"] == ""):
+            if (youAre == "O"):
+                opponent = "X"
+            else:
+                opponent = "O"
+            for i in range(len(played)):
+                if(played[i] == ''):
+                    temp = played[:]
+                    temp[i] = opponent
+                    if(checkwin(temp,opponent)):
+                        played[i] = youAre
+                        data["position"] = board[i]
+                        break
+        if(data["position"] == ""):
             if(played.count('') == 8):
                 data["position"] = "C"
                 played[4] = youAre
