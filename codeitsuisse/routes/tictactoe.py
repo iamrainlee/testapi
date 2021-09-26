@@ -47,18 +47,33 @@ def tictactoe():
                     if(data['player'] == youAre):
                         if(data["position"] != lastmove):
                             flip = True
+                            logging.info("Flip table")
+                            gameOn = False
+                            rdata = {}
+                            rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                            requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                         continue
                     else:
                         try:
                             logging.info(played)
                             if(data['position'] not in board or played[board.index(data['position'])] != '' or data["action"] != "putSymbol"):
                                 flip = True
+                                logging.info("Flip table")
+                                gameOn = False
+                                rdata = {}
+                                rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                                requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                                 continue
                             played[board.index(data['position'])] = data['player']
                             logging.info("Prepare to makemove")
                             lastmove = makemove(board,played,youAre,battleId)
                         except:
                             flip = True
+                            logging.info("Flip table")
+                            gameOn = False
+                            rdata = {}
+                            rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                            requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == youAre):
@@ -70,13 +85,13 @@ def tictactoe():
                     except:
                         gameOn = False
                         break
-        if(flip):
-            logging.info("Flip table")
-            gameOn = False
-            rdata = {}
-            rdata['action'] = '(╯°□°)╯︵ ┻━┻'
-            requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-            break
+        # if(flip):
+        #     logging.info("Flip table")
+        #     gameOn = False
+        #     rdata = {}
+        #     rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+        #     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
+        #     break
     return json.dumps(data)
 
 def makemove(board,played,youAre,battleId):
