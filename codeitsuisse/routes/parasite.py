@@ -360,7 +360,7 @@ def calparasite(data):
         r["p3"] = -1
     else:
         r["p3"] = tick2
-    r["p4"] = energy
+    r["p4"] = min(energy,energy2)
     return r
 
 def changedGraph(grid,i,j):
