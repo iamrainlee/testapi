@@ -7,3 +7,4 @@ import codeitsuisse.routes.asteroid
 import codeitsuisse.routes.quoridor
 import codeitsuisse.routes.stockhunter
 import codeitsuisse.routes.stonks
+import codeitsuisse.routes.ciphercracking
