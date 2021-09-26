@@ -53,7 +53,7 @@ def tictactoe():
                                 rdata = {}
                                 rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                                 requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-                                break
+                                continue
                             played[board.index(data['position'])] = data['player']
                             logging.info("Prepare to makemove")
                             makemove(board,played,youAre,battleId)
@@ -63,7 +63,6 @@ def tictactoe():
                             rdata = {}
                             rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                             requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
-                            break
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == youAre):
