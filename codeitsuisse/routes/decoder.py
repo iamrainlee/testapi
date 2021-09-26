@@ -23,18 +23,24 @@ def decoder():
         if(rpos+wpos == num):
             realpossible = i["output_received"]
     realpossible = possible[:]
-    perm = permutations(realpossible,num)
+    # perm = permutations(realpossible,num)
+    r = []
+    for i in range(num):
+        n = random.randint(0,len(realpossible-1))
+        r.append(realpossible[n])
+        del realpossible[n]
     result = {}
-    for i in list(perm):
-        d =list(i)
-        correct = True
-        for j in data["history"]:
-            if(decodercheckresult(d,j["output_received"]) != decodergetresult(j["result"])):
-                correct = False
-                break
-        if(correct):
-            result["answer"] = d
-            break
+    result["answer"] = r
+    # for i in list(perm):
+    #     d =list(i)
+    #     correct = True
+    #     for j in data["history"]:
+    #         if(decodercheckresult(d,j["output_received"]) != decodergetresult(j["result"])):
+    #             correct = False
+    #             break
+    #     if(correct):
+    #         result["answer"] = d
+    #         break
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 def decodergetresult(x):
