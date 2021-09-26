@@ -27,7 +27,7 @@ def decoder():
     # perm = permutations(realpossible,num)
     r = []
     for i in range(num):
-        n = random.randint(0,len(realpossible-1))
+        n = random.randint(0,len(realpossible)-1)
         r.append(realpossible[n])
         del realpossible[n]
     result = {}
