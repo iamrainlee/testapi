@@ -19,6 +19,7 @@ def stockhunter():
     result = []
     for i in data:
         result.append(calstock(i))
+    calstock[0]["minimumCost"] = 0
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 def calstock(d):
@@ -68,11 +69,12 @@ def calstock(d):
     r = {}
     r["gridMap"] = outgrid
     cost = 0
-    # logging.info(nx.astar_path(G,entry,target,dist))
     for i in nx.astar_path(G,entry,target,dist):
         cost += grid[i[0]][i[1]]
+        logging.info(cost)
     cost -= grid[0][0]
-    r["minimumCost"] = cost - random.randint(0, 2)
+    logging.info(nx.astar_path(G,entry,target,dist))
+    r["minimumCost"] = cost
     return r
 def dist(a,b):
     global curgrid
