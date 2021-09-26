@@ -19,7 +19,7 @@ def stockhunter():
     result = []
     for i in data:
         result.append(calstock(i))
-    result[1]["minimumCost"] = 0
+    result[0]["minimumCost"] -= random.randint(0,2)
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 def calstock(d):
