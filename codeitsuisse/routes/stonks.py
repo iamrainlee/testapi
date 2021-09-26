@@ -62,7 +62,7 @@ def calstonks(d):
     s = None
     logging.info(stockp)
     for i in stockp:
-        if(stockp[i]["max"]-stockp[i]["min"]>maxp):
+        if((stockp[i]["max"]-stockp[i]["min"])>maxp):
             s = i
             maxp = stockp[i]["max"]-stockp[i]["min"]
     if(s != None):
@@ -73,4 +73,10 @@ def calstonks(d):
         output.append("s-"+s+'-'+str(shares))
         if(stockp[s]["max-year"] != 2037):
             output.append("j-"+str(stockp[s]["max-year"])+'-2037')
+    else:
+        output.append("j-2037-2036"))
+        shares = d['capital']//d['timeline']['2037'][stock[0]]["price"]
+        output.append("b-"+stock[0]+'-'+str(shares))
+        output.append("j-2036-2037"))
+        output.append("s-"+stock[0]+'-'+str(shares))
     return output
