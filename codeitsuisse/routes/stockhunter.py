@@ -32,10 +32,10 @@ def calstock(d):
     grid = []
     outgrid = []
     riskLevel = []
-    for i in range(height+upmost):
+    for i in range(height+upmost+3):
         riskLevel.append([])
         grid.append([])
-        for j in range(width+leftmost):
+        for j in range(width+leftmost+3):
             grid[i].append(0)
             riskIndex = 0
             if(i == 0 and j == 0):
