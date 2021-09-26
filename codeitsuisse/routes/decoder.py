@@ -24,6 +24,7 @@ def decoder():
             realpossible = i["output_received"]
     realpossible = possible[:]
     perm = permutations(realpossible,num)
+    result = {}
     for i in list(perm):
         d =list(i)
         correct = True
@@ -32,7 +33,7 @@ def decoder():
                 correct = False
                 break
         if(correct):
-            result = d
+            result["answer"] = d
             break
     logging.info("My result :{}".format(result))
     return json.dumps(result)
