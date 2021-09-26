@@ -234,9 +234,12 @@ def getenergy(grid3,i,j):
         except:
             a = 1
         if((i-k)>=0):
-            if(j-k) >= 0 and grid3[i-k][j-k] == 3:
-                tenergy = min(k+k-1,tenergy)
-                success = True
+            try:
+                if(j-k) >= 0 and grid3[i-k][j-k] == 3:
+                    tenergy = min(k+k-1,tenergy)
+                    success = True
+            except:
+                a = 1
             try:
                 if((i-k) >= 0 and grid3[i-k][j+k] == 3 ):
                     tenergy = min(k+k-1,tenergy)
