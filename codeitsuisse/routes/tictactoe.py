@@ -84,7 +84,7 @@ def makemove(board,played,youAre,battleId):
     if(played.count('') == 9):
         data["position"] = "NW"
         played[0] = youAre
-    else:
+    if(data["position"] == ""):
         for i in range(len(played)):
             if(played[i] == ''):
                 temp = played[:]
@@ -93,33 +93,33 @@ def makemove(board,played,youAre,battleId):
                     played[i] = youAre
                     data["position"] = board[i]
                     break
-        if(data["position"] == ""):
-            if (youAre == "O"):
-                opponent = "X"
-            else:
-                opponent = "O"
+    if(data["position"] == ""):
+        if (youAre == "O"):
+            opponent = "X"
+        else:
+            opponent = "O"
+        for i in range(len(played)):
+            if(played[i] == ''):
+                temp = played[:]
+                temp[i] = opponent
+                if(checkwin(temp,opponent)):
+                    played[i] = youAre
+                    data["position"] = board[i]
+                    break
+    if(data["position"] == ""):
+        if(played.count('') == 8):
+            data["position"] = "C"
+            played[4] = youAre
+        elif(played.count('') == 7):
+            if(played[4] != ''):
+                data["position"] = "SE"
+                played[8] = youAre
+        else:
             for i in range(len(played)):
                 if(played[i] == ''):
-                    temp = played[:]
-                    temp[i] = opponent
-                    if(checkwin(temp,opponent)):
-                        played[i] = youAre
-                        data["position"] = board[i]
-                        break
-        if(data["position"] == ""):
-            if(played.count('') == 8):
-                data["position"] = "C"
-                played[4] = youAre
-            elif(played.count('') == 7):
-                if(played[4] != ''):
-                    data["position"] = "SE"
-                    played[8] = youAre
-            else:
-                for i in range(len(played)):
-                    if(played[i] == ''):
-                        played[i] = youAre
-                        data["position"] = board[i]
-                        break
+                    played[i] = youAre
+                    data["position"] = board[i]
+                    break
     logging.info("My move :{}".format(data))
     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
 
