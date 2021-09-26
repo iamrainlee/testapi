@@ -22,7 +22,8 @@ def decoder():
         rpos, wpos = decodergetresult(i["result"])
         if(rpos+wpos == num):
             realpossible = i["output_received"]
-    realpossible = possible[:]
+    if(realpossible == [])
+        realpossible = possible[:]
     # perm = permutations(realpossible,num)
     r = []
     for i in range(num):
