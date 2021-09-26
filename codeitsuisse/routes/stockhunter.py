@@ -103,5 +103,4 @@ def weight(a,b,dic):
     global curgrid
     (x1, y1) = a
     (x2, y2) = b
-    logging.info("{},{}: {}".format(x2, y2,curgrid[x2][y2]))
     return curgrid[x2][y2]
