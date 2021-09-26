@@ -20,6 +20,7 @@ def tictactoe():
     played = ['','','','','','','','','']
     youAre = ""
     gameOn = True
+    lastmove = ""
     while gameOn:
         url = 'https://cis2021-arena.herokuapp.com/tic-tac-toe/start/'+battleId
         headers = {'Accept': 'text/event-stream'}
@@ -39,10 +40,16 @@ def tictactoe():
                     youAre = data['youAre']
                     if(data['youAre'] == "O"):
                         logging.info("Prepare to make move")
-                        makemove(board,played,youAre,battleId)
+                        lastmove = makemove(board,played,youAre,battleId)
             except:
                 try:
                     if(data['player'] == youAre):
+                        if(data["position"] != lastmove):
+                            logging.info("Flip table")
+                            gameOn = False
+                            rdata = {}
+                            rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                            requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = rdata)
                         continue
                     else:
                         try:
@@ -56,7 +63,7 @@ def tictactoe():
                                 continue
                             played[board.index(data['position'])] = data['player']
                             logging.info("Prepare to makemove")
-                            makemove(board,played,youAre,battleId)
+                            lastmove = makemove(board,played,youAre,battleId)
                         except:
                             logging.info("Flip table")
                             gameOn = False
@@ -131,6 +138,7 @@ def makemove(board,played,youAre,battleId):
                     break
     logging.info("My move :{}".format(data))
     requests.post("https://cis2021-arena.herokuapp.com/tic-tac-toe/play/"+battleId, data = data)
+    return data["position"]
 
 def checkwin(played,youAre):
     if(played[0] == youAre and played[3] == youAre and played[6] == youAre):
