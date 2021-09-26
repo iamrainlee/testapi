@@ -2,7 +2,6 @@ import logging
 import json
 import copy
 import networkx as nx
-import matplotlib.pyplot as plt
 
 from flask import request, jsonify
 import random
