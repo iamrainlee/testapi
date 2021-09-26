@@ -33,6 +33,7 @@ def calstock(d):
     grid = []
     outgrid = []
     riskLevel = []
+    cost = {}
     for i in range(height+upmost+15):
         riskLevel.append([])
         grid.append([])
@@ -51,6 +52,8 @@ def calstock(d):
                 riskIndex = 0
             riskLevel[i].append((riskIndex+d['gridDepth'])%d['gridKey'])
             grid[i][j] = 3 - riskLevel[i][j]%3
+            cost[(i,j)] = {}
+            cost[(i,j)]["cost"] = 3 - riskLevel[i][j]%3
 
     for i in range(height):
         outgrid.append([])
@@ -65,18 +68,22 @@ def calstock(d):
     global curgrid
     curgrid = grid
     G=nx.grid_graph(dim=[width+leftmost+15,height+upmost+15])
+    nx.set_edge_attributes(G, cost)
     r = {}
     r["gridMap"] = outgrid
     cost = 0
-    for i in nx.astar_path(G,entry,target,dist):
+    for i in nx.astar_path(G,entry,target,dist,weight="cost"):
         cost += grid[i[0]][i[1]]
     cost -= grid[0][0]
-    logging.info(nx.astar_path(G,entry,target,dist))
+    logging.info(nx.astar_path(G,entry,target,dist,weight="cost"))
     r["minimumCost"] = cost
     return r
 def dist(a,b):
-    global curgrid
+    # global curgrid
+    # (x1, y1) = a
+    # (x2, y2) = b
+    # logging.info("{},{}: {}".format(x1, y1,curgrid[x1][y1]))
+    # return curgrid[x1][y1]
     (x1, y1) = a
     (x2, y2) = b
-    # logging.info("{},{}: {}".format(x1, y1,curgrid[x1][y1]))
-    return curgrid[x1][y1]
+    return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
