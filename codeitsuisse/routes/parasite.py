@@ -247,6 +247,8 @@ def calparasite(data):
                             changedGraph(grid3,i,j)
                             break
             energy = min(energy,energy2)
+    else:
+        energy = 0
     if(uninfected1):
         r["p2"] = -1
     else:
@@ -255,7 +257,7 @@ def calparasite(data):
         r["p3"] = -1
     else:
         r["p3"] = tick2
-    r["p4"] = min(energy,energy2)
+    r["p4"] = energy
     return r
 
 def changedGraph(grid,i,j):
