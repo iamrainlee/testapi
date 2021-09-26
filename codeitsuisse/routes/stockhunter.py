@@ -71,7 +71,6 @@ def calstock(d):
     cost = 0
     for i in nx.astar_path(G,entry,target,dist):
         cost += grid[i[0]][i[1]]
-        logging.info(cost)
     cost -= grid[0][0]
     logging.info(nx.astar_path(G,entry,target,dist))
     r["minimumCost"] = cost
