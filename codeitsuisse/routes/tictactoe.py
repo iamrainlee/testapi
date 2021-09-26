@@ -114,6 +114,16 @@ def makemove(board,played,youAre,battleId):
             if(played[4] != ''):
                 data["position"] = "SE"
                 played[8] = youAre
+            else:
+                if(played[1] != "" && played[2] != ""):
+                    data["position"] = board[2]
+                    played[2] = youAre
+                elif(played[3] != "" && played[6] != ""):
+                    data["position"] = board[6]
+                    played[6] = youAre
+                else:
+                    data["position"] = "C"
+                    played[4] = youAre
         else:
             for i in range(len(played)):
                 if(played[i] == ''):
