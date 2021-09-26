@@ -34,10 +34,10 @@ def calstock(d):
     outgrid = []
     riskLevel = []
     cost = {}
-    for i in range(height+upmost+15):
+    for i in range(height+upmost):
         riskLevel.append([])
         grid.append([])
-        for j in range(width+leftmost+15):
+        for j in range(width+leftmost):
             grid[i].append(0)
             riskIndex = 0
             if(i == 0 and j == 0):
@@ -52,9 +52,15 @@ def calstock(d):
                 riskIndex = 0
             riskLevel[i].append((riskIndex+d['gridDepth'])%d['gridKey'])
             grid[i][j] = 3 - riskLevel[i][j]%3
-            cost[(i,j)] = {}
-            cost[(i,j)]["cost"] = 3 - riskLevel[i][j]%3
-
+            # if(i != 0 and j != 0):
+            #     cost[(i,j)] = {}
+            #     cost[(i,j)]["cost"] = 3 - riskLevel[i][j]%3
+    G=nx.grid_graph(dim=[width+leftmost,height+upmost])
+    for i in range(0,height+upmost):
+        for j in range(0,width+leftmost):
+            G.add_edge(i, j, weight= 3 - riskLevel[i][j]%3)
+            cost[(i-1,j-1)] = {}
+            cost[(i-1,j-1)]["cost"] = 3 - riskLevel[i][j]%3
     for i in range(height):
         outgrid.append([])
         for j in range(width):
@@ -67,8 +73,7 @@ def calstock(d):
                 outgrid[i][j] = "S"
     global curgrid
     curgrid = grid
-    G=nx.grid_graph(dim=[width+leftmost+15,height+upmost+15])
-    nx.set_edge_attributes(G, cost)
+    # nx.set_edge_attributes(G, cost)
     # pos = nx.spring_layout(G)
     # nx.draw(G, pos, with_labels = True, node_color="#f86e00")
     # edge_labels = nx.get_edge_attributes(G, "cost")
@@ -77,18 +82,26 @@ def calstock(d):
     r = {}
     r["gridMap"] = outgrid
     cost = 0
-    for i in nx.astar_path(G,entry,target,dist,weight="cost"):
+    for i in nx.astar_path(G,entry,target,weight=weight):
         cost += grid[i[0]][i[1]]
     cost -= grid[0][0]
-    logging.info(nx.astar_path(G,entry,target,dist,weight="cost"))
+    logging.info(nx.astar_path(G,entry,target,dist,weight=weight))
     r["minimumCost"] = cost
+    #nx.astar_path_length(G,entry,target,dist,weight="cost")
     return r
 def dist(a,b):
+    # global curgrid
+    # (x1, y1) = a
+    # (x2, y2) = b
+    #
+    # logging.info("{},{}: {}".format(x1, y1,curgrid[x1][y1]))
+    # return curgrid[x1][y1]
+    (x1, y1) = a
+    (x2, y2) = b
+    return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+def weight(a,b,dic):
     global curgrid
     (x1, y1) = a
     (x2, y2) = b
-    # logging.info("{},{}: {}".format(x1, y1,curgrid[x1][y1]))
-    return curgrid[x1][y1]
-    # (x1, y1) = a
-    # (x2, y2) = b
-    # return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    logging.info("{},{}: {}".format(x2, y2,curgrid[x2][y2]))
+    return curgrid[x2][y2]
