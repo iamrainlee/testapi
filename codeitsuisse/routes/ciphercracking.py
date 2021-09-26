@@ -24,7 +24,7 @@ def ciphercracking():
     mins = data[0]["est_mins"]
     result = []
     for i in range(1,pow(10,D)):
-        if(hashlib.sha256(i)==Y)
+        if(hashlib.sha256(i)==Y):
             result.append(i)
     logging.info("My result :{}".format(result))
     return json.dumps(result)
