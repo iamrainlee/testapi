@@ -310,4 +310,6 @@ def calenergy(grid,i,j,score):
         ind.append((k[0],k[1]))
     x = energys.index(min(energys))
     y = getenergy(grid,ind[x][0],ind[x][1])
+    if(len(energys)==0):
+        return score
     return calenergy(grid,ind[x][0],ind[x][1],y) + score
