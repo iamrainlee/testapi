@@ -140,7 +140,8 @@ def calparasite(data):
     if(uninfected1):
         for k in uninfecteds:
             grid3 = copy.deepcopy(grid)
-            energy = min(calenergy(grid3,k[0],k[1]),energy)
+            e = getenergy(grid3,k[0],k[1])
+            energy = min(calenergy(grid3,k[0],k[1],e),energy)
     else:
         energy = 0
     if(uninfected1):
@@ -289,8 +290,8 @@ def getenergy(grid3,i,j):
         return tenergy
     else:
         return -1
-def calenergy(grid,i,j):
-    score = getenergy(grid,i,j)
+def calenergy(grid,i,j,score):
+    # score = getenergy(grid,i,j)
     uninfecteds = []
     uninfected = False
     for i in range(len(grid)):
@@ -301,8 +302,11 @@ def calenergy(grid,i,j):
     if(not uninfected):
         return score
     energys = []
+    ind = []
+
     for k in uninfecteds:
         grid4 = copy.deepcopy(grid)
-        energys.append(calenergy(grid4,k[0],k[1]))
-
-    return min(energys) + score
+        energys.append(getenergy(grid4,k[0],k[1]))
+        ind.append((k[0],k[1]))
+    x = energys.index(min(energys))
+    return calenergy(grid,ind[x[0]],ind[x[1]],min(energys)) + score
