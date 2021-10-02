@@ -16,8 +16,15 @@ def testget():
         data = request.args
         if(data["action"] == "get_students"):
             rdata = json.loads('[{"Name":"Nicole","UID":"3035785611","DOB":"2002-11-08","Local":"TRUE","Beautiful Index":1000},{"Name":"Rain","UID":"3035779571","DOB":"2002-04-05","Local":"TRUE","Beautiful Index":"NULL"}]')
+            if(data["name"] and data["name"] != ""):
+                if(data["name"] == "Nicole"):
+                    rdata = json.loads('{"Name":"Nicole","UID":"3035785611","DOB":"2002-11-08","Local":"TRUE","Beautiful Index":1000}')
+                elif(data["name"] == "Rain"):
+                    rdata = json.loads('{"Name":"Rain","UID":"3035779571","DOB":"2002-04-05","Local":"TRUE","Beautiful Index":"NULL"}')
+                else:
+                    rdata["error"] = "Student not found"
         else:
             rdata["error"] = "Wrong action"
     else:
-        rdata["error"] = "Wrong action"
+        rdata["error"] = "Missing parameters"
     return json.dumps(rdata)
