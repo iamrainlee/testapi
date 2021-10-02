@@ -3,7 +3,7 @@
 import logging
 import json
 
-from flask import request, jsonify
+from flask import request, jsonify, Response
 
 from codeitsuisse import app
 
@@ -15,8 +15,9 @@ def testget():
     if(len(request.args)>0):
         data = request.args
         if(data["action"] == "get_students"):
-            rdata = json.loads('[{"Name":"Nicole","UID":"3035785611","DOB":"2002-11-08","Local":"TRUE","Beautiful Index":1000},{"Name":"Rain","UID":"3035779571","DOB":"2002-04-05","Local":"TRUE","Beautiful Index":"NULL"}]')
-            if(data["name"] and data["name"] != ""):
+            if(request.args.get("name") is None):
+                rdata = json.loads('[{"Name":"Nicole","UID":"3035785611","DOB":"2002-11-08","Local":"TRUE","Beautiful Index":1000},{"Name":"Rain","UID":"3035779571","DOB":"2002-04-05","Local":"TRUE","Beautiful Index":"NULL"}]')
+            else:
                 if(data["name"] == "Nicole"):
                     rdata = json.loads('{"Name":"Nicole","UID":"3035785611","DOB":"2002-11-08","Local":"TRUE","Beautiful Index":1000}')
                 elif(data["name"] == "Rain"):
@@ -30,4 +31,4 @@ def testget():
     resp = Response(response=json.dumps(rdata),
                     status=200,
                     mimetype="application/json")
-    return resp
+    return jsonify(rdata)
