@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 import logging
 import json
-from sseclient import SSEClient
-import requests
 
 from flask import request, jsonify
 
@@ -11,7 +9,7 @@ from codeitsuisse import app
 
 logger = logging.getLogger(__name__)
 
-@app.route('/tic-tac-toe', methods=['GET'])
+@app.route('/testget', methods=['GET'])
 def testget():
     data = request.args
     rdata = {}
