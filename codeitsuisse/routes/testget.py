@@ -27,4 +27,7 @@ def testget():
             rdata["error"] = "Wrong action"
     else:
         rdata["error"] = "Missing parameters"
-    return json.dumps(rdata)
+    resp = Response(response=json.dumps(rdata),
+                    status=200,
+                    mimetype="application/json")
+    return resp
