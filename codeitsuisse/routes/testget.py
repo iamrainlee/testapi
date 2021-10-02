@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @app.route('/testget', methods=['GET'])
 def testget():
     rdata = {}
-    if(len(request.args)>0):
+    if(len(request.args)>0 and request.args.get("action") is not None):
         data = request.args
         if(data["action"] == "get_students"):
             if(request.args.get("name") is None):
@@ -28,7 +28,4 @@ def testget():
             rdata["error"] = "Wrong action"
     else:
         rdata["error"] = "Missing parameters"
-    resp = Response(response=json.dumps(rdata),
-                    status=200,
-                    mimetype="application/json")
     return jsonify(rdata)
