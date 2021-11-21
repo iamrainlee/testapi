@@ -24,7 +24,8 @@ def exercise2():
     songs.append({"Title": "銀河修理員","Artist": "Dear Jane","Album": "銀河修理員 - Single"})
     rdata = {}
     rdata['result'] = []
-    while len(songs) >= 0:
+    while len(songs) > 0:
         num = random.randint(0, len(songs))
-        rdata.append()
+        rdata.append(songs[num])
+        del songs[num]
     return jsonify(rdata)
