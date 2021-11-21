@@ -30,6 +30,4 @@ def exercise2():
         num = random.randint(0, len(songs)-1)
         rdata['result'].append(songs[num])
         del songs[num]
-    http_response = make_response(json.dumps(rdata))
-    http_response.headers['Content-type'] = 'application/json; charset=utf-8'
-    return http_response
+    return Response(jsonify(rdata), mimetype='application/json; charset=utf-8')
