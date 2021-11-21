@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 @app.route('/exercise2', methods=['GET'])
 def exercise2():
+    print()
     songs = []
     songs.append({"Title": "記憶棉","Artist": "MC Cheung Tinfu","Album": "記憶棉 - Single"})
     songs.append({"Title": "下一位前度","Artist": "Terence Lam","Album": "下一位前度 - Single"})
@@ -29,4 +30,6 @@ def exercise2():
         num = random.randint(0, len(songs)-1)
         rdata['result'].append(songs[num])
         del songs[num]
-    return jsonify(rdata)
+    http_response = make_response(json.dumps(rdata))
+    http_response.headers['Content-type'] = 'application/json; charset=utf-8'
+    return http_response
