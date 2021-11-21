@@ -30,4 +30,4 @@ def exercise2():
         num = random.randint(0, len(songs)-1)
         rdata['result'].append(songs[num])
         del songs[num]
-    return Response(jsonify(rdata), mimetype='application/json; charset=utf-8')
+    return Response(json.dumps(rdata), mimetype='application/json; charset=utf-8')
