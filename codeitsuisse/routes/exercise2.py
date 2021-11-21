@@ -26,6 +26,6 @@ def exercise2():
     rdata['result'] = []
     while len(songs) > 0:
         num = random.randint(0, len(songs))
-        rdata['result'].append(songs[num])
+        rdata['result'].append(songs[num-1])
         del songs[num]
     return jsonify(rdata)
