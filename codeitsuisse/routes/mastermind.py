@@ -60,8 +60,15 @@ def mastermind():
                         for i in range(4):
                             if (mastermind_records[hash]['answer'][i] == data['answer'][i]):
                                 position += 1
-                    rdata['same_pos'] = position
-                    rdata['diff_pos'] = same - position
+                    if(position == 4):
+                        rdata['success'] = True
+                        rdata['same_pos'] = position
+                        rdata['diff_pos'] = same - position
+                        rdata['count'] = mastermind_records[hash]['count']
+                    else:
+                        rdata['success'] = False
+                        rdata['same_pos'] = position
+                        rdata['diff_pos'] = same - position
                 else:
                     rdata['error'] = 'Invalid answer'
     else:
