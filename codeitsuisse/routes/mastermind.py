@@ -69,6 +69,11 @@ def mastermind():
                         rdata['success'] = False
                         rdata['same_pos'] = position
                         rdata['diff_pos'] = same - position
+                        rdata['same'] = same
+                        rdata['ans_count'] = ans_count
+                        rdata['count'] = count
+                        rdata['ans'] = mastermind_records[hash]['answer']
+
                 else:
                     rdata['error'] = 'Invalid answer'
     else:
