@@ -30,7 +30,7 @@ def mastermind():
     elif(data["action"] == "check"):
         if(data.get("id") is None):
             rdata['error'] = 'Missing id'
-        elif(data['id'] not in rdata.keys()):
+        elif(data['id'] not in mastermind_records.keys()):
             rdata['error'] = "Wrong id. Please init."
         else:
             if(data.get("answer") is None):
