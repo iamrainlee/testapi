@@ -6,7 +6,7 @@ import random
 
 from flask import request, jsonify, Response
 
-from codeitsuisse import app
+from codeitsuisse import app, mastermind_records
 
 logger = logging.getLogger(__name__)
 
