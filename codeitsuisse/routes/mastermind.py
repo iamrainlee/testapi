@@ -25,7 +25,7 @@ def mastermind():
         rdata['possibles'] = [0,1,2,3,4,5,6,7,8,9]
         rdata['id'] = hash
         mastermind_records[hash] = {}
-        mastermind_records[hash]['answer'] = str(random.randrange(0, 10000)).zfill(5)
+        mastermind_records[hash]['answer'] = str(random.randrange(0, 10000)).zfill(4)
         mastermind_records[hash]['count'] = 0
     elif(data["action"] == "check"):
         if(data.get("id") is None):
