@@ -1,6 +1,6 @@
 from flask import Flask
 app = Flask(__name__)
-app.mastermind_records = {}
+mastermind_records = {}
 import codeitsuisse.routes.testget
 import codeitsuisse.routes.testpost
 import codeitsuisse.routes.exercise1
