@@ -51,5 +51,17 @@ def scrap_this_2():
           <tr><td> Hava Nagila (Let Us Rejoice) </td><td> Trad. Klezmer </td></tr>
           <tr><td> Barn Dance <br/><small>from Way Out West</small></td><td> Richard Wade </td></tr>
         </table>
+        <table id="another_table" border="1">
+        <tr><td>Just another table to confuse you</td><td>For practice</td></tr>
+        <tr><td>Mm hoo sad/angry after last practice arrrr&#129402;</td><td>Rain really care about you</td></tr>
+        <tr><td>Though nei angry dou hoo leng, but nei mm angry wui leng d</td><td>Nei happy ngo jau hoi sum</td></tr>
+        </table>
+        <table id="second_table" border="1">
+        <tr><th colspan="3">List of days I wanna spend with u</th></tr>
+          <tr><th>Date</th><th>Name</th><th>Things want to do</th></tr>
+          <tr><td>25/12</td><td>Christmas</td><td>Go to Victoria harbour, exchange presents</td></tr>
+          <tr><td>31/12</td><td>New year's eve</td><td>Countdown</td></tr>
+          <tr><td>14/2</td><td>*********'s day</td><td>Give u a wonderful day</td></tr>
+        </table>
       </body>
   </html>""";
