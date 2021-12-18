@@ -6,3 +6,4 @@ import codeitsuisse.routes.testpost
 import codeitsuisse.routes.exercise1
 import codeitsuisse.routes.exercise2
 import codeitsuisse.routes.mastermind
+import codeitsuisse.routes.scrap_this_1
