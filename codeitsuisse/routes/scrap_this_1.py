@@ -19,7 +19,7 @@ def scrap_this_1():
       <body>
           <p>Nicole Xmas yau boy pui la</p>
           <p>MM sai me la</p>
-          <p>ngo sad and angry dou write this bei nei</p>
+          <p>ngo sad dou write this bei nei</p>
           <p>ngo so sad, nei dou mm find me, mm sai me, because nei yau boy pui la</p>
           <p>But mm guns la, ngo still write this note to u. Ngo doi nei so good, nei dou mm yiu ngo.</p>
       </body>
